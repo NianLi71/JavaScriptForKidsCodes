@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Find the buried treasure</title>
+    </head>
+
+    <body>
+        <h1 id="heading">Find the buried treasure</h1>
+
+        <img id="map" width=400 height=400 src="http://nostarch.com/images/treasuremap.png">
+
+        <p id="distance"></p>
+        
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+        
+        <script>
+            // var clickHandler = function (event) {
+            //     console.log("click!" + event.pageX + "," + event.pageY);
+            // }
+
+            // $("html").click(clickHandler);
+
+            var getRandomNubmer = function (size) {
+                return Math.floor(Math.random() * size);
+            };
+
+            var getDistance = function (clickPoint, target) {
+                console.log(clickPoint.x, clickPoint.y);
+                var diffX = clickPoint.x - target.x;
+                var diffY = clickPoint.y - target.y;
+                return Math.sqrt(diffX*diffX + diffY*diffY);
+            };
+
+            var width = 400;
+            var height = 400;
+            var clicks = 0;
+
+            var target = {
+                x:getRandomNubmer(width),
+                y:getRandomNubmer(height)
+            };
+            console.log(target.x);
+
+            var getDistanceHint = function (distance) {
+                if (distance < 10) 
+                    return "got it, take " + clicks + "clicks";
+                else
+                    return "distance is " + distance;
+            }
+
+            $('#map').click(function (event) {
+                clicks++;
+                
+                // var clickPoint = {
+                //     x:event.offsetX,
+                //     y:event.offsetY
+                // };
+
+                // console.log("click!" + event.pageX + "," + event.pageY);
+                // console.log(clickPoint.x, clickPoint.y);
+                // getDistance(clickPoint, target);
+                // var distance = getDistance(clickPoint, target);
+
+                var distance = getDistance({
+                    x:event.offsetX,
+                    y:event.offsetY
+                }, target
+                );
+                
+                $("#distance").text(getDistanceHint(distance));
+                
+            });
+        
+        </script>
+    </body>
+</html>
