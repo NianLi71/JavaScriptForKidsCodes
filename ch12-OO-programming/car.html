@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Car</title>
+    </head>
+
+    <body>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+
+        <script>
+            class Car {
+                constructor(x, y) {
+                    this._x = x;
+                    this._y = y;
+                }
+
+                draw() {
+                    let carHtml = '<img src="http://nostarch.com/images/car.png" />';
+
+                    this.carElement = $(carHtml);
+
+                    this.carElement.css({
+                        position: "absolute",
+                        left: this._x,
+                        top: this._y
+                    });
+
+                    $("body").append(this.carElement);
+                }
+
+                moveRight() {
+                    this._x += 5;
+                    this.updateCss();                    
+                }
+
+                moveDown() {
+                    this._y += 5;
+                    this.updateCss();
+                }
+
+                updateCss() {
+                    this.carElement.css({
+                        left: this._x,
+                        top: this._y
+                    });
+                }
+            }
+
+            let tesla = new Car(100, 100);
+            let nissan = new Car(300, 300);
+
+            tesla.draw();
+            nissan.draw();
+
+            /**
+             * open console and try type:
+             * tesla.moveRight();
+             * nissan.moveDown();
+            */
+        </script>
+    </body>
+</html>
