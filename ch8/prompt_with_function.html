@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first proper HTML page</title>
+    </head>
+
+    <body>
+        <h1>Hangman</h1>
+
+        <script>
+            let pickWord = function() {
+                let words = [
+                'javascript',
+                'monkey',
+                'amazing',
+                'pancake'
+                ]
+
+                return words[Math.floor(Math.random() * words.length)];
+            }
+
+            function setupAnswerArray(word) {
+                let array = [];
+                for (let i = 0; i < word.length; i++) {
+                    array.push('_');
+                }
+
+                return array;
+            }
+
+            let showPlayerProgess = answerArray => { 
+                alert(answerArray.join(' '))
+            };
+
+            let getGuess = () => prompt('Guess a letter');
+
+            function updateGameState(guess, word, answerArray) {
+                let correctGuesses = 0;
+                for (let j = 0; j < word.length; j++) {
+                    if (word[j] === guess) {
+                        answerArray[j] = guess;
+                        correctGuesses++;
+                    }
+                }
+
+                return correctGuesses;
+            }
+
+            let showAnswer = (answerArray, word) => {
+                alert(answerArray.join(' '));
+                alert(`Good job! The anwser was ${word}`);
+            }
+
+            let word = pickWord();
+            let answerArray = setupAnswerArray(word);
+            let remainingLetters = word.length;
+
+            while (remainingLetters > 0) {
+                showPlayerProgess(answerArray);
+            
+                let guess = getGuess();
+
+                if (!guess) {
+                    break
+                } else if (guess.length !== 1) {
+                    alert('Please enter a single letter.');
+                } else {
+                    let correctGuesses = updateGameState(guess, word, answerArray);
+                    remainingLetters -= correctGuesses;
+                }
+            }
+
+            showAnswer(answerArray, word);
+        </script>
+    </body>
+</html>

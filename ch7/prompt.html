@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first proper HTML page</title>
+    </head>
+
+    <body>
+        <h1>Hangman</h1>
+
+        <script>
+            let words = [
+                'javascript',
+                'monkey',
+                'amazing',
+                'pancake'
+            ]
+
+            let word = words[Math.floor(Math.random() * words.length)];
+
+            let answerArray = [];
+            for (let i = 0; i < word.length; i++) {
+                answerArray.push('_');
+            }
+
+            let remainingLetters = word.length;
+
+            while (remainingLetters > 0) {
+                alert(answerArray.join(' '));
+
+                let guess = prompt('Guess a letter');
+
+                if (!guess) {
+                    break
+                } else if (guess.length !== 1) {
+                    alert('Please enter a single letter.');
+                } else {
+                    for (let j = 0; j < word.length; j++) {
+                        if (word[j] === guess) {
+                            answerArray[j] = guess;
+                            remainingLetters--;
+                        }
+                    }
+                }
+            }
+
+            alert(answerArray.join(' '));
+            alert(`Good job! The anwser was ${word}`);
+        </script>
+    </body>
+</html>
