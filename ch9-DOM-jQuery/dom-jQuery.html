@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Playing with the DOM</title>
+    </head>
+
+    <body>
+        <h1 id="main-heading">Hello World!</h1>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+
+        <script>
+            function appendParagraph() {
+                $("body").append("<p>This is a new paragraph.</p>");
+            }
+
+            function fadeAndSlide() {
+                $("h1").text("fade and slide");
+                $("h1").fadeOut(3000).fadeIn(2000);
+                $("h1").slideUp(1000).slideDown(1000);
+            }
+
+            let newHeadingText = prompt("Please provide a new heading:");
+            $("#main-heading").text(newHeadingText);
+
+            setTimeout(appendParagraph, 1000);
+        
+            setTimeout(fadeAndSlide, 2000);
+            
+        </script>
+    </body>
+</html>

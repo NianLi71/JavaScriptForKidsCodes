@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Playing with the DOM</title>
+    </head>
+
+    <body>
+        <h1 id="main-heading">Hello World!</h1>
+
+        <script>
+            let headingElement = document.getElementById("main-heading");
+
+            console.log(headingElement.innerHTML);
+
+            let newHeadingText = prompt("Please provide a new heading:");
+            if (newHeadingText) {
+                headingElement.innerHTML = newHeadingText;
+            }
+        </script>
+    </body>
+</html>

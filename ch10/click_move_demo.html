@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Interactive programming</title>
+    </head>
+
+    <body>
+        <h1 id="heading">Hello world!</h1>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-2.1.0.js"></script> -->
+
+        <script>
+            let clickDemo = function() {
+                var clickHandler = function (event) {
+                    console.log("click!" + event.pageX + "," + event.pageY);
+                }
+
+                $("html").click(clickHandler);
+            };
+
+            let mouseMoveDemo = function() {
+                $("html").mousemove(function (event) {
+                $("#heading").offset({
+                        left: event.pageX,
+                        top: event.pageY
+                    })
+                });
+            };
+
+            let choice = prompt("Which demo to run?\n 1. mouse click demo\n 2. mouse move demo\n");
+            if (choice === "1") {
+                clickDemo();
+            } else {
+                mouseMoveDemo();
+            }
+
+        </script>
+    </body>
+</html>
