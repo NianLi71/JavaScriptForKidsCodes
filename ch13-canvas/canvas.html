@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<htmt>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+
+        <script>
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            // color box
+            ctx.fillStyle = "Red";
+            ctx.fillRect(0,0,10,10);
+
+             // https://css-tricks.com/snippets/css/named-colors-and-hex-equivalents/
+            ctx.fillStyle = "Aqua";
+            ctx.fillRect(10,10,10,10);
+
+            // blank rect
+            ctx.strokeStyle = "DeepPink";
+            ctx.lineWidth = 4;
+            ctx.strokeRect(20,20,100,20);
+
+            // draw path
+            ctx.strokeStyle = "LightCoral";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(100,100);
+            ctx.lineTo(160,160);
+            ctx.moveTo(160,100);
+            ctx.lineTo(100,160);
+            ctx.stroke();
+
+            //fill
+            ctx.strokeStyle = "SkyBlue";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(100,100);
+            ctx.lineTo(100,60);
+            ctx.lineTo(130,30);
+            ctx.lineTo(160,60);
+            ctx.lineTo(160,100);
+            ctx.lineTo(100,100);
+            ctx.fill();
+        
+            // circle
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "Green";
+            ctx.beginPath();
+            // center at (50,200), r is 20
+            ctx.arc(50,200,20,0, Math.PI/2, false);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(100,200,20,0, Math.PI, false);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(150,200,20,0, Math.PI * 2, false);
+            ctx.stroke();
+            
+            
+        </script>
+    </body>
+</html>

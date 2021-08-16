@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<htmt>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+
+        <script>
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            let drawCircle = function(x, y, r, color="Black", lineWidth=4) {
+                ctx.lineWidth = lineWidth;
+                ctx.strokeStyle = color;
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI *2, false);
+                ctx.stroke();
+            }
+
+            drawCircle(100,100,10,"Red", 1);
+            drawCircle(100,100, 20, "Orange", 2);
+            drawCircle(100,100,30, "Yellow", 3);
+            drawCircle(100,100, 40, "Green", 4);
+            drawCircle(100,100,50,"Blue", 5);
+            drawCircle(100,100,60,"Purple", 6);
+            
+            
+        </script>
+    </body>
+</html>
