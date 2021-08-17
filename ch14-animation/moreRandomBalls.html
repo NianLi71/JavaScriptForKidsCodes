@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<htmt>
+    <head>
+        <title>Ball</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+
+        <script>
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            let boundaryLimit = 500;
+
+            class Ball {
+                constructor () {
+                    this.r = Math.floor(Math.random() * 7) + 3;
+                    this.x = Ball._getRandomPos(this.r);
+                    this.y = Ball._getRandomPos(this.r);
+                    this.xSpeed = Ball._getRandomSpeed();
+                    this.ySpeed = Ball._getRandomSpeed();
+                    this.color = Ball._pickRandomColor();
+                }
+
+                static _getRandomPos (r) {
+                    let pos;
+                    do {
+                        pos = Math.floor(Math.random() * boundaryLimit);
+                    } while (pos + r > boundaryLimit || pos - r < 0);
+
+                    return pos;
+                }
+
+                static _getRandomSpeed () {
+                    let speed;
+                    do {
+                        speed = Math.floor(Math.random() * 20) - 10;
+                    } while (speed === 0);
+
+                    return speed;
+                }
+
+                static _pickRandomColor () {
+                    const colors = ["Red", "Blue", "Orange", "DeepPink", "Green", "Purple", "Turquoise"];
+
+                    return colors[Math.floor(Math.random() * colors.length)];
+                }
+
+                draw () {
+                    this._circle(this.x, this.y, this.r, this.color, true);
+                }
+
+                _circle (x, y, r, color, fill=false) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI *2, false);
+                    
+                    if (fill) {
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                    } else {
+                        ctx.strokeStyle = color;
+                        ctx.stroke();
+                    }
+                }
+
+                move () {
+                    this.x += this.xSpeed;
+                    this.y += this.ySpeed;
+                }
+
+                checkCollision () {
+                    if (this.x - this.r < 0 || this.x + this.r > boundaryLimit) {
+                        this.xSpeed = -this.xSpeed;
+                    }
+                    if (this.y - this.r < 0 || this.y + this.r > boundaryLimit) {
+                        this.ySpeed = -this.ySpeed;
+                    }
+                }
+            }
+
+            let clearCanvas = () => ctx.clearRect(0,0,boundaryLimit,boundaryLimit);
+            let drawCanvasBoundary = () =>  {
+                ctx.strokeStyle = "Black";
+                ctx.strokeRect(0,0,boundaryLimit,boundaryLimit);
+            }
+
+            let balls = [];
+            for (let i = 0; i < 50; i++) {
+                balls.push(new Ball());
+            }
+
+            setInterval(function () {
+                clearCanvas();
+                
+                balls.forEach(ball => {
+                    ball.draw();
+                    ball.move();
+                    ball.checkCollision();
+                });
+            
+                drawCanvasBoundary();
+            }, 30);
+
+        
+        </script>
+    </body>
+</html>

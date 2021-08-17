@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<htmt>
+    <head>
+        <title>Ball</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+
+        <script>
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            let boundaryLimit = 500;
+
+            class Ball {
+                constructor (x, y, r, xSpeed, ySpeed, color="Blue") {
+                    this.x = x;
+                    this.y = y;
+                    this.r = r;
+                    this.xSpeed = xSpeed;
+                    this.ySpeed = ySpeed;
+                    this.color = color;
+                }
+
+                draw () {
+                    this._circle(this.x, this.y, this.r, this.color, true);
+                }
+
+                _circle (x, y, r, color, fill=false) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI *2, false);
+                    
+                    if (fill) {
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                    } else {
+                        ctx.strokeStyle = color;
+                        ctx.stroke();
+                    }
+                }
+
+                move () {
+                    this.x += this.xSpeed;
+                    this.y += this.ySpeed;
+                }
+
+                checkCollision () {
+                    if (this.x - this.r < 0 || this.x + this.r > boundaryLimit) {
+                        this.xSpeed = -this.xSpeed;
+                    }
+                    if (this.y - this.r < 0 || this.y + this.r > boundaryLimit) {
+                        this.ySpeed = -this.ySpeed;
+                    }
+                }
+            }
+
+            let clearCanvas = () => ctx.clearRect(0,0,boundaryLimit,boundaryLimit);
+            let drawCanvasBoundary = () =>  {
+                ctx.strokeStyle = "Black";
+                ctx.strokeRect(0,0,boundaryLimit,boundaryLimit);
+            }
+
+            // let ball = new Ball(100, 100, 5, -2, 3, "Red");
+            let balls = [
+                new Ball(100, 100, 5, -2, 3, "Red"),
+                new Ball(50, 20, 3, 2, 1, "Blue"),
+                new Ball(70, 30, 8, 6, -3, "Green"),
+            ];
+
+            setInterval(function () {
+                clearCanvas();
+                
+                balls.forEach(ball => {
+                    ball.draw();
+                    ball.move();
+                    ball.checkCollision();
+                });
+            
+                drawCanvasBoundary();
+            }, 30);
+
+        
+        </script>
+    </body>
+</html>

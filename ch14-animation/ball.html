@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<htmt>
+    <head>
+        <title>Ball</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+
+        <script>
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            class Ball {
+                constructor (x, y, xSpeed, ySpeed) {
+                    this.x = x;
+                    this.y = y;
+                    this.xSpeed = xSpeed;
+                    this.ySpeed = ySpeed;
+                }
+
+                draw () {
+                    this._circle(this.x, this.y, 5, true);
+                }
+
+                _circle (x, y, r, fill=false) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI *2, false);
+                    
+                    if (fill) {
+                        ctx.fill();
+                    } else {
+                        ctx.stroke();
+                    }
+                }
+
+                move () {
+                    this.x += this.xSpeed;
+                    this.y += this.ySpeed;
+                }
+
+                checkCollision () {
+                    if (this.x < 0 || this.x > 200) {
+                        this.xSpeed = -this.xSpeed;
+                    }
+
+                    if (this.y < 0 || this.y > 200) {
+                        this.ySpeed = -this.ySpeed;
+                    }
+                }
+            }
+
+            let ball = new Ball(100, 100, -2, 3);
+
+            let clearCanvas = () => ctx.clearRect(0,0,200,200);
+            let drawCanvasBoundary = () => ctx.strokeRect(0,0,200,200);
+
+            setInterval(function () {
+                clearCanvas();
+
+                ball.draw();
+                ball.move();
+                ball.checkCollision();
+
+                drawCanvasBoundary();
+            }, 30);
+
+        
+        </script>
+    </body>
+</html>
