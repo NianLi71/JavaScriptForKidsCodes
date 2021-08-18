@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Keyboard input</title>
+    </head>
+
+    <body>
+        <canvas id="canvas" width="400" height="400"></canvas>
+        
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+
+        <script>
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            let width = canvas.width;
+            let height = canvas.height;
+            console.log(`canvas width: ${width}, height: ${height}`);
+
+            class Ball {
+                constructor () {
+                    this.x = width/2;
+                    this.y = height/2;
+                    this.xSpeed = 5;
+                    this.ySpeed = 0;
+                }
+
+                draw () {
+                    this._circle(this.x, this.y, 10, true);
+                }
+
+                _circle (x, y, r, fill=false) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI *2, false);
+                    
+                    if (fill) {
+                        ctx.fill();
+                    } else {
+                        ctx.stroke();
+                    }
+                }
+
+                move () {
+                    this.x += this.xSpeed;
+                    this.y += this.ySpeed;
+
+                    if (this.x < 0) {
+                        this.x = width;
+                    } else if (this.x > width) {
+                        this.x = 0;
+                    }
+
+                    if (this.y < 0) {
+                        this.y = height;
+                    } else if (this.y > height) {
+                        this.y = 0;
+                    }
+                }
+
+                setDirection (direction) {
+                    if (direction === "up") {
+                        this.xSpeed = 0;
+                        this.ySpeed = -5;
+                    } else if (direction === "down") {
+                        this.xSpeed = 0;
+                        this.ySpeed = 5;
+                    } else if (direction === "left") {
+                        this.xSpeed = -5;
+                        this.ySpeed = 0;
+                    } else if (direction === "right") {
+                        this.xSpeed = 5;
+                        this.ySpeed = 0;
+                    } else if (direction === "stop") {
+                        this.xSpeed = 0;
+                        this.ySpeed = 0;
+                    }
+                }
+            }
+
+            let clearCanvas = () => ctx.clearRect(0,0,width,height);
+            let drawCanvasBoundary = () =>  {
+                ctx.strokeStyle = "Black";
+                ctx.strokeRect(0,0, width,height);
+            }
+
+            let ball = new Ball();
+
+            let keyActions = {
+                32:"stop",
+                37:"left",
+                38:"up",
+                39:"right",
+                40:"down"
+            };
+
+            $("body").keydown(function (event) {
+                let direction = keyActions[event.keyCode];
+
+                ball.setDirection(direction);
+            });
+
+            // update frame
+            setInterval(function () {
+                clearCanvas();
+
+                ball.draw();
+                ball.move();
+
+                drawCanvasBoundary();
+            }, 30);
+
+        </script>
+    </body>
+</html>
