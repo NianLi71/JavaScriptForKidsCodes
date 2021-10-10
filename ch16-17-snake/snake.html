@@ -177,6 +177,8 @@
                 }
 
                 move (snake) {
+                    // move apple to new position, also avoid collision with the snake
+                    
                     let newPosition;
                     do {
                         newPosition = this._getNewPosition();
